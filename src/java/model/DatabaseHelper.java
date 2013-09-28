@@ -28,17 +28,15 @@ public class DatabaseHelper {
     public ResultSet getResultSet(String sqlQuery) {
 
         try {
-            System.out.println("conn = ");
             try {
                 Class.forName("com.mysql.jdbc.Driver");
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            System.out.println("after conn = ");
 //            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzadb?user=root&password=root");
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/pizzadb?", "root", "");
-            System.out.println("conn = " + con.getSchema());
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzadb?", "root", "");
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(sqlQuery);
             stmt.executeQuery(sqlQuery);
