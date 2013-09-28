@@ -11,9 +11,9 @@
             <%@include file="includes/header.jsp" %>
             <div class="loginTab">
                 <!--<form method="post" action="controller/_Login.jsp">-->
-                <form method="post" action="PizzaMenu.jsp">
+                <form method="post" action="_login">
                     <h2 style="font-family: calibri">Login</h2>
-                    <input type="text" name="txtUsername" style="width: 88%;" class="input" placeholder="Username"/><br/><br/>
+                    <input type="text" name="txtMobile" style="width: 88%;" class="input" placeholder="Mobile No"/><br/><br/>
                     <input type="password" name="txtPass" style="width: 88%;" class="input" placeholder="Password"/><br/>
                     <br/>
 
