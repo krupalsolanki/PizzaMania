@@ -1,0 +1,227 @@
+/* 
+    Document   : pizza
+    Created on : Sep 27, 2013, 9:08:11 PM
+    Author     : Krupal
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+body {
+    background-image: url("../images/pizzabg.png");
+    background-repeat: no-repeat;
+    background-size: 900px;
+    background-position: right;
+    background-attachment: fixed;
+    background-color: #f2f1ea;
+}
+h1{
+    font-family: 'calibri',cursive;
+    font-weight: lighter;
+}
+.center{
+    width: 990px;
+    height: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    /*    background-color:#ffffff;*/
+    color: #000000;
+    /*    opacity:0.6;
+        filter:alpha(opacity=60);  For IE8 and earlier */
+}
+.header{
+    height: 50px;
+}
+.headline {
+    height: 50px;
+    margin-left: 65px;
+}
+.menu{
+    height: 50px;
+}
+.menu li {
+    width: 150px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    background: #fff;
+    -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    margin-right: 4px;
+    -webkit-transition: all 300ms linear;
+    -moz-transition: all 300ms linear;
+    -o-transition: all 300ms linear;
+    -ms-transition: all 300ms linear;
+    transition: all 300ms linear;
+}
+
+.menu li:last-child {
+    margin-right: 0px;
+}
+.menu img{
+
+    margin: 5px 0px 5px 10px;
+    height: 40px;
+}
+.menu li:hover {
+    background-color: #d15d36;
+}
+
+.menu li:hover .menuTag {
+    color: #fff;
+    font-size: 25px;
+}
+.menuTag {
+    font-family: 'calibri', cursive;
+    font-size: 20px;
+    color: #333;
+    line-height: 50px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 20px;
+    top: 0px;
+    text-align: center;
+    -webkit-transition: all 400ms linear;
+    -moz-transition: all 400ms linear;
+    -o-transition: all 400ms linear;
+    -ms-transition: all 400ms linear;
+    transition: all 400ms linear;
+}
+
+hr{ display: block; height: 1px;
+    border: 0; border-top: 1px solid #d15d36;
+    margin: 1em 0; padding: 0; 
+}
+
+.input{
+    border-radius: 0px;
+    border: 1px solid #d15d36;
+    height: 30px;
+    text-transform: capitalize;
+
+}
+.loginTab {
+    margin-top: 50px;
+    margin-left: 150px;
+    background-color: #ffffff;
+    width: 220px;
+    -webkit-box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35);
+    padding: 20px;
+}
+.registerTab{
+    margin-top: 50px;
+    margin-left: 150px;
+    background-color: #ffffff;
+    width: 220px;
+    -webkit-box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35);
+    padding: 20px;
+}
+.registerTab input{
+    margin: 5px 0px;
+}
+.loginTab input[type='text'] {
+    background-image: url("../images/mobile.png");
+    background-size: 18px;
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+.loginTab input[type='password'] {
+    background-image: url("../images/password.png");
+    background-size: 20px;
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+.button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 2em .55em;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border:none;
+    background-color: #d15d36;
+    font-family: 'calibri', cursive;
+}
+
+.button:hover {
+    background-color: white;
+    color :  #d15d36;
+    border: 1px solid #d15d36;
+    padding: .4em 1.9em .45em;
+}
+.subMenu {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 1em .55em;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border:none;
+    margin:10px 10px;
+    font-family: 'calibri', cursive;
+    -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+
+.subMenu:hover {
+    /*border: 1px solid #d15d36;*/
+    background-color: #d15d36;
+    color:white;
+    font-size: 105%;
+    margin: 0;
+    font-family: 'calibri', cursive;
+}
+
+.subMenuDiv{
+    width:920px;
+    margin:10px auto 0px;
+    height:20px;
+}
+
+.detailsTab{
+    width: 600px;
+    height: 350px;
+    background-color: white;
+    margin: 50px 20px 0px;
+    -webkit-box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.35);
+/*    opacity:0.6;
+    filter:alpha(opacity=60);*/
+    padding: 10px;
+    
+}
+.menuImgTab{
+    float: left;
+    width: 125px;
+    height: 100%;
+    text-align: center;
+/*    opacity: 1;
+    z-index: 1;
+    filter:alpha(opacity=100);*/
+}
+.pizzaDetailsTab{
+    width: 460px;
+    margin: 0px 0px 0px 140px;
+}
