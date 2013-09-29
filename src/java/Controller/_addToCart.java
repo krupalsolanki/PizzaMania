@@ -11,8 +11,6 @@ import DbClasses.OrderTable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.ItemSizeData;
-import model.MenuItemData;
-import model.OrderTableData;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
+import model.*;
+import DbClasses.*;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -30,7 +28,8 @@ import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
  */
 @WebServlet(name = "_addToCart", urlPatterns = {"/_addToCart"})
 public class _addToCart extends HttpServlet {
-
+    ArrayList<CustomizeItem> shoppingCart;
+    UserT user;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -46,20 +45,84 @@ public class _addToCart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            int MenuItemId;
-            if(request.getParameter("itemID") == null){
-                MenuItemId = 1;
+            
+            int menuItemId = Integer.parseInt(request.getParameter("itemID"));
+            int itemQty = Integer.parseInt(request.getParameter("itemQty"));
+            String itemSizeString = request.getParameter("itemSize");
+//            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(menuItemId);
+            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(menuItemId);
+            
+            ItemSize curItemSize = new ItemSizeData().getItemSizeString(itemSizeString);
+            System.out.println("item price "+curItemSize.getItemSizePrice());
+            HttpSession session = request.getSession();
+            user = (UserT)session.getAttribute("User");
+//            System.out.println(session.getAttribute(shoppingCart.get(2).toString()));
+            
+            System.out.println("user is "+user.getUsername());
+            if(session.getAttribute("customizeItemCart") == null){
+                shoppingCart = new ArrayList<CustomizeItem>();
             }
             else{
-                MenuItemId = Integer.parseInt(request.getParameter("itemID"));
+                shoppingCart = (ArrayList<CustomizeItem>)session.getAttribute("customizeItemCart");
             }
-            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(MenuItemId);
-            
-       
-            
-            
-            request.getSession().setAttribute("", out);
-        } finally {            
+            addToCart(menuItemObj, itemQty, itemSizeString);
+            session.setAttribute("customizeItemCart", shoppingCart);
+            double netPrice=0;
+            double tax = 0;
+            double grandTotal = 0;
+            out.print("\n" +
+"                <h1>Your Order</h1>\n" +
+"\n" +
+"                <table style=\"width: 300px;\">\n" );
+            for (CustomizeItem ci : shoppingCart) {
+                out.print("<tr>");
+                out.print("<td>");
+                MenuItem mi = new MenuItemData().getCustomizeItem(ci.getMenuItemID());
+                out.print(mi.getItemName());
+                out.print("<div style=\"float: right;\" class=\"orders\">\n" +
+"                                <p>"+ci.getQuantity()+"</p>&nbsp;&nbsp;&nbsp;<p>"+ci.getNetPrice()+"</p>\n" +
+"                                <p><img src=\"images/delete.png\"/></p>\n" +
+"                            </div>");
+                out.print("</td>");
+                out.print("</tr>");
+                netPrice +=ci.getNetPrice();
+            }
+            tax = netPrice*0.7;
+            float FTax = (float) Math.round(tax * 100) / 1000;
+            grandTotal = FTax + netPrice;
+                out.print("</table>\n" +
+"                <div class=\"coupon\">\n" +
+"                    <input type=\"text\" class=\"input\" style=\"width: 120px; margin: auto\" placeholder=\"Redeem Coupon\"/>\n" +
+"                    <button class=\"button\">Redeem</button>\n" +
+"                </div>\n" +
+"                <table class=\"price\">\n" +
+"                    <tr>\n" +
+"                        <td>\n" +
+"                            Net Price \n" +
+"                        </td>\n" +
+"                        <td>\n" +
+"                            Rs. "+netPrice+"\n" +
+"                        </td>\n" +
+"                    </tr>\n" +
+"                    <tr>\n" +
+"                        <td>\n" +
+"                            Tax (S.T + VAT)\n" +
+"                        </td>\n" +
+"                        <td>\n" +
+"                            Rs. "+FTax+"\n" +
+"                        </td>\n" +
+"                    </tr>\n" +
+"                    <tr>\n" +
+"                        <td>\n" +
+"                            Grand Total\n" +
+"                        </td>\n" +
+"                        <td>\n" +
+"                          Rs. "+grandTotal+"\n" +
+"                        </td>\n" +
+"                    </tr>\n" +
+"                </table>\n");
+            out.print("<div style=\"width: 110px; margin: 10px auto;\"> <button class=\"button\" id=\"checkout\">Checkout</button></div>");
+        } finally {
             out.close();
         }
     }
@@ -104,24 +167,21 @@ public class _addToCart extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    public void addToCart(MenuItem item, int qty, String size){
-        ItemSize curItemSize = new ItemSizeData().getItemSize(size);
+
+    public void addToCart(MenuItem item, int qty, String size) {
+        ItemSize curItemSize = new ItemSizeData().getItemSizeString(size);
         CustomizeItem CI = new CustomizeItem();
         CI.setItemSizeID(curItemSize.getItemSizeId());
         CI.setMenuItemID(item.getMenuItemId());
         CI.setQuantity(qty);
         CI.setNetPrice((item.getItemPrice() + curItemSize.getItemSizePrice()) * CI.getQuantity());
-        ArrayList<CustomizeItem> shoppingCart = new ArrayList<CustomizeItem>();
-        shoppingCart.add(CI);
-        OrderTable curOrder = new OrderTable();
-        curOrder.getOrderId();
-        CI.setOrderId(shoppingCart.indexOf(CI));
+        System.out.println("added successfully");
+//        OrderTable curOrder = new OrderTableData().createTempOrder(user.getUserid());
+//        System.out.println("orderid "+curOrder.getOrderId());
+//        CI.setOrderId(curOrder.getOrderId());
         System.out.println(CI.getOrderId());
-       HttpServletRequest request = null;
-       HttpSession session = request.getSession();
-       session.setAttribute("order", shoppingCart);
-        System.out.println(session.getAttribute(shoppingCart.get(2).toString()));
-       
+        shoppingCart.add(CI);
+        
+
     }
 }

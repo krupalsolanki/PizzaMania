@@ -15,57 +15,12 @@
             <%@include file="includes/header.jsp" %>
             <div class="rightdiv" id="cart">
                 <h1>Your Order</h1>
-
-                <table style="width: 300px;">
-                    <tr>
-                        <td>
-                            Deluxe Veggie
-                            <div style="float: right;" class="orders">
-                                <p>Rs 570</p>
-                                <p><img src="images/delete.png"/></p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Deluxe Delight
-                            <div style="float: right;" class="orders">
-                                <p>Rs 70</p>
-                                <p><img src="images/delete.png" /></p>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
                 <div class="coupon">
                     <input type="text" class="input" style="width: 120px; margin: auto" placeholder="Redeem Coupon"/>
                     <button class="button">Redeem</button>
                 </div>
-                <table class="price">
-                    <tr>
-                        <td>
-                            Net Price 
-                        </td>
-                        <td>
-                            Rs 570
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tax (S.T + VAT)
-                        </td>
-                        <td>
-                            Rs 70
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Grand Total
-                        </td>
-                        <td>
-                            Rs 1070
-                        </td>
-                    </tr>
-                </table>
+                
+               
             </div> 
 
 
@@ -86,19 +41,20 @@
                 </div>
                 <div class="pizzaDetailsTab" id="pizzaDetailsTab"> 
                     <img src="images/<% MenuItem menuItemObj = new MenuItemData().getCustomizeItem(3);
-                    out.print(menuItemObj.getImageSource()); %>" style="margin-left: 35px;" />
+                    out.print(menuItemObj.getImageSource()); %>" style="margin-left: 35px; height: 250px;" />
                     <div class="content" >
                         <h3><% 
                         out.print(menuItemObj.getItemName());
                         %></h3>&nbsp;&nbsp;&nbsp;&nbsp;
                         <% out.print(menuItemObj.getItemToppings()); %><br/>
-                        <div class="sizeTab" >Size :</div>
-                        <div class="sizeTab" >
-                            <input type="radio" name="size" value="small" id="small"/>Small<br/>
+                        <div class="sizeTab" >Size :<br/>
+                            <input type="radio" name="size" value="small" checked="true" id="small"/>Small<br/>
                             <input type="radio" name="size" value="medium" id="medium"/>medium<br/>
-                            <input type="radio" name="size" value="large" id="large" />large<br/>
+                            <input type="radio" name="size" value="large" id="large" />large<br/></div>
+                        <div class="sizeTab" >
+                            Quantity : <input type="text" value="1" id="txtQty" name="txtQty" style="width: 20px;" />
                         </div>
-                        <div class="sizeTab" ><button class="button" id="addToCart"><img src="images/pizza_icon.png" /></button></div>
+                        <div class="sizeTab" ><button class="button" id="<% out.print(menuItemObj.getItemTypeId());%>" onclick="addToCart(this.id);"><img src="images/empty-cart-dark.png" /></button></div>
                     </div>
                 </div>
             </div>

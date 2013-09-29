@@ -1,82 +1,70 @@
-function loadDetails(imgID){
-    alert(imgID);
+function loadDetails(imgID) {
     $.ajax({
-            type: "POST",
-            url: '_pizzaDetails',
-            data: {
-                itemID: imgID
-            }, 
-            success: function(data) {
-                alert(data);
-                $('#pizzaDetailsTab').html(data);
-            }
+        type: "POST",
+        url: '_pizzaDetails',
+        data: {
+            itemID: imgID
+        },
+        success: function(data) {
+            $('#pizzaDetailsTab').html(data);
+        }
 
-        });
+    });
+}
+function addToCart(btnCartId) {
+    var addItem = btnCartId;
+    var qty = document.getElementById("txtQty").value;
+    var size = document.getElementsByName('size');
+
+    for (var i = 0, length = size.length; i < length; i++) {
+        if (size[i].checked) {
+            var itemSize = size[i].value;
+            break;
+        }
+    }
+
+    $.ajax({
+        type: "POST",
+        url: '_addToCart',
+        data: {
+            itemID: addItem,
+            itemQty: qty,
+            itemSize: itemSize
+        },
+        success: function(data) {
+            $('#cart').html(data);
+        }
+    });
 }
 
-$(document).ready(function (){
-//    function details(){
-//        $.ajax({
-//            type: "POST",
-//            url: '_pizzaDetails',
-//            data: {
-//                itemID: item
-//            }, 
-//            success: function(data) {
-//                alert(data);
-//                $('#pizzaDetailsTab').html(data);
-//            }
-//
-//        });
-//    }
-    $(".subMenu").click(function(){
+$(document).ready(function() {
+    
+    $(".subMenu").click(function() {
         var btn = this.id;
-        alert(btn);
         $.ajax({
             type: "POST",
             url: '_subMenuImages',
             data: {
                 selectedBtn: btn
-            }, 
+            },
             success: function(data) {
-                alert(data);
                 $('#menuImgTab').html(data);
             }
 
         });
     });
-    $(".item").click(function(){
+    $(".item").click(function() {
         var item = this.id;
-        alert(item);
         $.ajax({
             type: "POST",
             url: '_pizzaDetails',
             data: {
                 itemID: item
-            }, 
+            },
             success: function(data) {
-                alert(data);
                 $('#pizzaDetailsTab').html(data);
             }
 
         });
     });
-   $("#addToCart").click(function (){
-       var addItem = this.id;
-       var size = $(".size").val();
-       alert(addItem);
-       
-       $.ajax({
-            type: "POST",
-            url: '_addToCart',
-            data: {
-                itemID: addItem
-            }, 
-            success: function(data) {
-                alert(data);
-                $('#cart').html(data);
-            }
-        });
-   }); 
-    
 });

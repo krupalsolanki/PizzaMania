@@ -10,7 +10,7 @@ package DbClasses;
  */
 public class ItemSize {
     private int itemSizeId;
-    private String itemSize;
+    private String itemSizeString;
     private int itemSizePrice;
 
     /**
@@ -27,19 +27,6 @@ public class ItemSize {
         this.itemSizeId = itemSizeId;
     }
 
-    /**
-     * @return the itemSize
-     */
-    public String getItemSize() {
-        return itemSize;
-    }
-
-    /**
-     * @param itemSize the itemSize to set
-     */
-    public void setItemSize(String itemSize) {
-        this.itemSize = itemSize;
-    }
 
     /**
      * @return the itemSizePrice
@@ -53,6 +40,20 @@ public class ItemSize {
      */
     public void setItemSizePrice(int itemSizePrice) {
         this.itemSizePrice = itemSizePrice;
+    }
+
+    /**
+     * @return the itemSizeString
+     */
+    public String getItemSizeString() {
+        return itemSizeString;
+    }
+
+    /**
+     * @param itemSizeString the itemSizeString to set
+     */
+    public void setItemSizeString(String itemSizeString) {
+        this.itemSizeString = itemSizeString;
     }
     
 }

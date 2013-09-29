@@ -32,7 +32,7 @@ public class ItemSizeData {
                                  itemSize = new ItemSize();
                                  itemSize.setItemSizeId(rs.getInt("ItemSizeId"));
                                  itemSize.setItemSizePrice(rs.getInt("ItemSizePrice"));
-                                 itemSize.setItemSize(rs.getString("ItemSize"));
+                                 itemSize.setItemSizeString(rs.getString("ItemSize"));
                                 
                                  
 
@@ -47,26 +47,8 @@ public class ItemSizeData {
         
     }
 
-    public ItemSize getItemSize(String itemSize){
-        ResultSet rs = db.getResultSet("Select * From ItemSize where ItemSizeId = "+itemSize);
-        ItemSize itemSize1 = new ItemSize();
-
-        try {
-            while (rs.next()) {
-                
-                                 itemSize1.setItemSizeId(rs.getInt("ItemSizeId"));
-                                 itemSize1.setItemSizePrice(rs.getInt("ItemSizePrice"));
-                                 itemSize1.setItemSize(rs.getString("ItemSize"));
-                      }
-        } catch (SQLException se) {
-        }
-        return null;
-        
-    }
-    public ItemSize getItemSize(int itemSizeId){
-        
-                   
-        ResultSet rs = db.getResultSet("Select * From ItemSize where ItemSizeId = "+itemSizeId);
+    public ItemSize getItemSizeString(String itemSizeString){
+        ResultSet rs = db.getResultSet("Select * From ItemSize where itemsize = '"+itemSizeString+"'");
         ItemSize itemSize = new ItemSize();
 
         try {
@@ -74,7 +56,25 @@ public class ItemSizeData {
                 
                                  itemSize.setItemSizeId(rs.getInt("ItemSizeId"));
                                  itemSize.setItemSizePrice(rs.getInt("ItemSizePrice"));
-                                 itemSize.setItemSize(rs.getString("ItemSize"));
+                                 itemSize.setItemSizeString(rs.getString("ItemSize"));
+                      }
+        } catch (SQLException se) {
+        }
+        return itemSize;
+        
+    }
+    public ItemSize getItemSize(int itemSizeId){
+        
+                   
+        ResultSet rs = db.getResultSet("Select * From ItemSize where ItemSizeId = '"+itemSizeId+"'");
+        ItemSize itemSize = new ItemSize();
+
+        try {
+            while (rs.next()) {
+                
+                                 itemSize.setItemSizeId(rs.getInt("ItemSizeId"));
+                                 itemSize.setItemSizeString(rs.getString("ItemSize"));
+                                 itemSize.setItemSizePrice(rs.getInt("ItemSizePrice"));
                 
                 
                 
@@ -83,7 +83,7 @@ public class ItemSizeData {
         }
 
         
-        return null;
+        return itemSize;
     }
             
     
