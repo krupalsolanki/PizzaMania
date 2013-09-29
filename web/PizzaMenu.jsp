@@ -35,12 +35,12 @@
             <div class="detailsTab">
                 <div style="margin: 0px 0px 0px 133px; position: absolute;"><img src="images/line.png" /></div>
                 <div class="menuImgTab" id="menuImgTab">
-                    <img src="images/T_slider-1.jpg" class="item" id="1" onclick="loadDetails(this.id);"/><br/>extra<br/>
-                    <img src="images/T_slider-2.jpg" /><br/>extra<br/>
-                    <img src="images/T_slider-3.jpg" /><br/>extra<br/>
+                    <img src="images/T_slider-1.jpg" class="item" id="1" onclick="loadDetails(this.id);"/><br/>Veg Margerita<br/>
+                    <img src="images/T_slider-2.jpg" id="2" onclick="loadDetails(this.id);" /><br/>Veg Country Special<br/>
+                    <img src="images/T_slider-3.jpg" id="3" onclick="loadDetails(this.id);" /><br/>Veg Fresh Veggie<br/>
                 </div>
                 <div class="pizzaDetailsTab" id="pizzaDetailsTab"> 
-                    <img src="images/<% MenuItem menuItemObj = new MenuItemData().getCustomizeItem(3);
+                    <img src="images/<% MenuItem menuItemObj = new MenuItemData().getCustomizeItem(1);
                     out.print(menuItemObj.getImageSource()); %>" style="margin-left: 35px; height: 250px;" />
                     <div class="content" >
                         <h3><% 

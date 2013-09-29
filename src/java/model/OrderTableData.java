@@ -129,7 +129,7 @@ public OrderTable createTempOrder(int userId)
     }
     public void insertOrder(OrderTable otd)
     {
-        int rs = db.executeQuery("Insert into OrderTable Values('" + otd.getOrderId() + "', '" + otd.getUserid() + "', '" + otd.getTotalBill() + "', '" + otd.getTax() + "', '" + otd.getGrandTotal() + "', '" + otd.getDiscount() + "', '" + otd.getOrderStatus() + "', '" + otd.getOrderDate() + "')");
+        int rs = db.executeQuery("Insert into OrderTable Values(NULL, '" + otd.getUserid() + "', '" + otd.getTotalBill() + "', '" + otd.getTax() + "', '" + otd.getGrandTotal() + "', '" + otd.getDiscount() + "', '" + otd.getOrderDate() + "','" + otd.getOrderStatus() + "')");
         
     }
 }

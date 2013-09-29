@@ -4,13 +4,17 @@
  */
 package Controller;
 
+import DbClasses.OrderTable;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.OrderTableData;
 
 /**
  *
@@ -35,15 +39,15 @@ public class _checkout extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet _checkout</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet _checkout at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            if(session.getAttribute("order") != null){
+            OrderTable order = (OrderTable)session.getAttribute("order");
+            new OrderTableData().insertOrder(order);
+            session.setAttribute("order", "");
+            session.setAttribute("shoppingCart", "");
+            RequestDispatcher Rd = request.getRequestDispatcher("orderConfirmation.jsp");
+                Rd.forward(request, response);
+            }
         } finally {            
             out.close();
         }

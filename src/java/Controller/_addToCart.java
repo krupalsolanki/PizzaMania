@@ -20,7 +20,8 @@ import javax.servlet.http.HttpSession;
 import model.ItemSizeData;
 import model.*;
 import DbClasses.*;
-import java.text.DecimalFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -28,8 +29,10 @@ import java.text.DecimalFormat;
  */
 @WebServlet(name = "_addToCart", urlPatterns = {"/_addToCart"})
 public class _addToCart extends HttpServlet {
+
     ArrayList<CustomizeItem> shoppingCart;
     UserT user;
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -45,83 +48,95 @@ public class _addToCart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
+
             int menuItemId = Integer.parseInt(request.getParameter("itemID"));
             int itemQty = Integer.parseInt(request.getParameter("itemQty"));
             String itemSizeString = request.getParameter("itemSize");
 //            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(menuItemId);
             MenuItem menuItemObj = new MenuItemData().getCustomizeItem(menuItemId);
-            
+
             ItemSize curItemSize = new ItemSizeData().getItemSizeString(itemSizeString);
-            System.out.println("item price "+curItemSize.getItemSizePrice());
+            System.out.println("item price " + curItemSize.getItemSizePrice());
             HttpSession session = request.getSession();
-            user = (UserT)session.getAttribute("User");
+            user = (UserT) session.getAttribute("User");
 //            System.out.println(session.getAttribute(shoppingCart.get(2).toString()));
-            
-            System.out.println("user is "+user.getUsername());
-            if(session.getAttribute("customizeItemCart") == null){
+
+            System.out.println("user is " + user.getUsername());
+            if (session.getAttribute("customizeItemCart") == null) {
                 shoppingCart = new ArrayList<CustomizeItem>();
-            }
-            else{
-                shoppingCart = (ArrayList<CustomizeItem>)session.getAttribute("customizeItemCart");
+            } else {
+                shoppingCart = (ArrayList<CustomizeItem>) session.getAttribute("customizeItemCart");
             }
             addToCart(menuItemObj, itemQty, itemSizeString);
             session.setAttribute("customizeItemCart", shoppingCart);
-            double netPrice=0;
+            double netPrice = 0;
             double tax = 0;
             double grandTotal = 0;
-            out.print("\n" +
-"                <h1>Your Order</h1>\n" +
-"\n" +
-"                <table style=\"width: 300px;\">\n" );
+            out.print("\n"
+                    + "                <h1>Your Order</h1>\n"
+                    + "\n"
+                    + "                <table style=\"width: 300px;\">\n");
             for (CustomizeItem ci : shoppingCart) {
                 out.print("<tr>");
                 out.print("<td>");
                 MenuItem mi = new MenuItemData().getCustomizeItem(ci.getMenuItemID());
                 out.print(mi.getItemName());
-                out.print("<div style=\"float: right;\" class=\"orders\">\n" +
-"                                <p>"+ci.getQuantity()+"</p>&nbsp;&nbsp;&nbsp;<p>"+ci.getNetPrice()+"</p>\n" +
-"                                <p><img src=\"images/delete.png\"/></p>\n" +
-"                            </div>");
+                out.print("<div style=\"float: right;\" class=\"orders\">\n"
+                        + "                                <p>" + ci.getQuantity() + "</p>&nbsp;&nbsp;&nbsp;<p>" + ci.getNetPrice() + "</p>\n"
+                        + "                                <p><img src=\"images/delete.png\"/></p>\n"
+                        + "                            </div>");
                 out.print("</td>");
                 out.print("</tr>");
-                netPrice +=ci.getNetPrice();
+                netPrice += ci.getNetPrice();
             }
-            tax = netPrice*0.7;
+            tax = netPrice * 0.7;
             float FTax = (float) Math.round(tax * 100) / 1000;
             grandTotal = FTax + netPrice;
-                out.print("</table>\n" +
-"                <div class=\"coupon\">\n" +
-"                    <input type=\"text\" class=\"input\" style=\"width: 120px; margin: auto\" placeholder=\"Redeem Coupon\"/>\n" +
-"                    <button class=\"button\">Redeem</button>\n" +
-"                </div>\n" +
-"                <table class=\"price\">\n" +
-"                    <tr>\n" +
-"                        <td>\n" +
-"                            Net Price \n" +
-"                        </td>\n" +
-"                        <td>\n" +
-"                            Rs. "+netPrice+"\n" +
-"                        </td>\n" +
-"                    </tr>\n" +
-"                    <tr>\n" +
-"                        <td>\n" +
-"                            Tax (S.T + VAT)\n" +
-"                        </td>\n" +
-"                        <td>\n" +
-"                            Rs. "+FTax+"\n" +
-"                        </td>\n" +
-"                    </tr>\n" +
-"                    <tr>\n" +
-"                        <td>\n" +
-"                            Grand Total\n" +
-"                        </td>\n" +
-"                        <td>\n" +
-"                          Rs. "+grandTotal+"\n" +
-"                        </td>\n" +
-"                    </tr>\n" +
-"                </table>\n");
-            out.print("<div style=\"width: 110px; margin: 10px auto;\"> <button class=\"button\" id=\"checkout\">Checkout</button></div>");
+            out.print("</table>\n"
+                    + "                <div class=\"coupon\">\n"
+                    + "                    <input type=\"text\" class=\"input\" style=\"width: 120px; margin: auto\" placeholder=\"Redeem Coupon\"/>\n"
+                    + "                    <button class=\"button\" >Redeem</button>\n"
+                    + "                </div>\n"
+                    + "                <table class=\"price\">\n"
+                    + "                    <tr>\n"
+                    + "                        <td>\n"
+                    + "                            Net Price \n"
+                    + "                        </td>\n"
+                    + "                        <td>\n"
+                    + "                            Rs. " + netPrice + "\n"
+                    + "                        </td>\n"
+                    + "                    </tr>\n"
+                    + "                    <tr>\n"
+                    + "                        <td>\n"
+                    + "                            Tax (S.T + VAT)\n"
+                    + "                        </td>\n"
+                    + "                        <td>\n"
+                    + "                            Rs. " + FTax + "\n"
+                    + "                        </td>\n"
+                    + "                    </tr>\n"
+                    + "                    <tr>\n"
+                    + "                        <td>\n"
+                    + "                            Grand Total\n"
+                    + "                        </td>\n"
+                    + "                        <td>\n"
+                    + "                          Rs. " + grandTotal + "\n"
+                    + "                        </td>\n"
+                    + "                    </tr>\n"
+                    + "                </table>\n");
+            out.print("<div style=\"width: 110px; margin: 10px auto;\"> <a href=\"_checkout\" ><button class=\"button\" id=\"checkout\">Checkout</button></a></div>");
+            OrderTable odt = new OrderTable();
+            odt.setUserid(user.getUserid());
+            odt.setDiscount(0.00);
+            odt.setGrandTotal(grandTotal);
+            odt.setTax(Double.parseDouble(""+FTax));
+            Date date = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+            odt.setOrderDate(ft.format(date).toString());
+            odt.setOrderStatus("Confirmed");
+            odt.setTotalBill(netPrice);
+            session.setAttribute("order", odt);
+            
+
         } finally {
             out.close();
         }
@@ -181,7 +196,7 @@ public class _addToCart extends HttpServlet {
 //        CI.setOrderId(curOrder.getOrderId());
         System.out.println(CI.getOrderId());
         shoppingCart.add(CI);
-        
+
 
     }
 }

@@ -11,6 +11,7 @@ function loadDetails(imgID) {
 
     });
 }
+
 function addToCart(btnCartId) {
     var addItem = btnCartId;
     var qty = document.getElementById("txtQty").value;
