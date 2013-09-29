@@ -44,6 +44,20 @@ $(document).ready(function (){
 
         });
     });
-        
+   $("#addToCart").click(function (){
+       var addItem = this.id;
+       alert(addItem);
+       $.ajax({
+            type: "POST",
+            url: '_addToCart',
+            data: {
+                itemID: addItem
+            }, 
+            success: function(data) {
+                alert(data);
+                $('#cart').html(data);
+            }
+        });
+   }); 
     
 });

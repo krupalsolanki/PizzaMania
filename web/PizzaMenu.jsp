@@ -11,7 +11,7 @@
     <body>
         <div class="center">
             <%@include file="includes/header.jsp" %>
-                        <div class="rightdiv">
+            <div class="rightdiv" id="cart">
                 <h1>Your Order</h1>
 
                 <table style="width: 300px;">
@@ -65,10 +65,10 @@
                     </tr>
                 </table>
             </div> 
-            
-            
-            
-            
+
+
+
+
             <div class="subMenuDiv" id="subMenuImages" >
                 <button class="subMenu" id="1">Simply Veg</button>
                 <button class="subMenu" id="2" >Veg Treat</button>
@@ -93,7 +93,7 @@
                             <input type="radio" name="size" value="medium" />medium<br/>
                             <input type="radio" name="size" value="large" />large<br/>
                         </div>
-                        <div class="sizeTab" ><button class="button"><img src="images/pizza_icon.png" /></button></div>
+                        <div class="sizeTab" ><button class="button" id="addToCart"><img src="images/pizza_icon.png" /></button></div>
                     </div>
                 </div>
             </div>

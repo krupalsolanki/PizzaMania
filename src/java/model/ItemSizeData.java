@@ -24,7 +24,7 @@ public class ItemSizeData {
     public ArrayList<DbClasses.ItemSize> getItemSizes(){
         ArrayList<DbClasses.ItemSize> itemSizes = new ArrayList<ItemSize>();
         
-                             ResultSet rs = db.getResultSet("Select * From CustomizeItem");
+                             ResultSet rs = db.getResultSet("Select * From ItemSize");
                          ItemSize itemSize;
 
                          try {
@@ -47,10 +47,26 @@ public class ItemSizeData {
         
     }
 
+    public ItemSize getItemSize(String itemSize){
+        ResultSet rs = db.getResultSet("Select * From ItemSize where ItemSizeId = "+itemSize);
+        ItemSize itemSize1 = new ItemSize();
+
+        try {
+            while (rs.next()) {
+                
+                                 itemSize1.setItemSizeId(rs.getInt("ItemSizeId"));
+                                 itemSize1.setItemSizePrice(rs.getInt("ItemSizePrice"));
+                                 itemSize1.setItemSize(rs.getString("ItemSize"));
+                      }
+        } catch (SQLException se) {
+        }
+        return null;
+        
+    }
     public ItemSize getItemSize(int itemSizeId){
         
                    
-        ResultSet rs = db.getResultSet("Select * From TrainMaster where ItemSizeId = "+itemSizeId);
+        ResultSet rs = db.getResultSet("Select * From ItemSize where ItemSizeId = "+itemSizeId);
         ItemSize itemSize = new ItemSize();
 
         try {
