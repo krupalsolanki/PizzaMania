@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  * @author Krupal
  */
 @WebServlet(name = "_login", urlPatterns = {"/_login"})
-public class _login extends HttpServlet implements java.io.Serializable{
+public class _login extends HttpServlet implements java.io.Serializable {
 
     /**
      * Processes requests for both HTTP
@@ -42,10 +42,15 @@ public class _login extends HttpServlet implements java.io.Serializable{
             String username = request.getParameter("txtMobile");
             String password = request.getParameter("txtPass");
             UserT user = new UserTData().getUser(username, password);
-            HttpSession session = request.getSession(true);
-            session.setAttribute("User", user);
-            RequestDispatcher Rd = request.getRequestDispatcher("PizzaMenu.jsp");
-            Rd.forward(request, response);
+            if (user.getUsername().equalsIgnoreCase("")) {
+                RequestDispatcher Rd = request.getRequestDispatcher("index.jsp");
+                Rd.forward(request, response);
+            } else {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("User", user);
+                RequestDispatcher Rd = request.getRequestDispatcher("PizzaMenu.jsp");
+                Rd.forward(request, response);
+            }
             out.println(username);
         } finally {
             out.close();

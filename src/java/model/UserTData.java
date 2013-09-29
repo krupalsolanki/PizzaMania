@@ -48,26 +48,24 @@ public class UserTData {
     public UserT getUser(String username, String password) {
 
         ResultSet rs = db.getResultSet("Select * From UserT Where Username = '" + username + "' and Password = '" + password + "'");
+//        ResultSet rs = db.getResultSet("Select * From UserT");
         System.out.println(username + " & " + password);
         user = new UserT();
         try {
-            while (rs.next()) {
-
+            if(rs.next()){
                 user.setUsername(rs.getString("Username"));
                 user.setPassword(rs.getString("Password"));
+                System.out.println("user created");
             }
-        } catch (SQLException se) {
-        }
-        finally{
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserTData.class.getName()).log(Level.SEVERE, null, ex);
+            else{
+                user.setUsername("");
+                System.out.println("user creation failed");
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserTData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;
     }
-
     public UserT getTestUser() {
 
 //        user = new UserT();
