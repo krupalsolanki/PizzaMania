@@ -11,15 +11,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pizza Menu</title>
         <link rel="stylesheet" href="CSS/pizza.css" type="text/css" />
+        <script type="text/javascript" src="includes/jquery-1.10.2.min.js" />
+        <script type="text/javascript" src="includes/pizza.js" />
     </head>
     <body>
         <div class="center">
             <%@include file="includes/header.jsp" %>
-            <div class="subMenuDiv" >
-                <button class="subMenu" >Simply Veg</button>
-                <button class="subMenu" >Veg Treat</button>
-                <button class="subMenu" >Simply Non-Veg</button>
-                <button class="subMenu" >Non-Veg Treat</button>
+            <div class="subMenuDiv" id="subMenuImages" >
+                <button class="subMenu" id="SV">Simply Veg</button>
+                <button class="subMenu" id="VT" >Veg Treat</button>
+                <button class="subMenu" id="SNV" >Simply Non-Veg</button>
+                <button class="subMenu" id="NVT" >Non-Veg Treat</button>
             </div>
             <div class="detailsTab">
                 <div style="margin: 0px 0px 0px 133px; position: absolute;"><img src="images/line.png" /></div>
