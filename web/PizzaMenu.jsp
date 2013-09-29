@@ -1,3 +1,5 @@
+<%@page import="model.MenuItemData"%>
+<%@page import="DbClasses.MenuItem"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -78,20 +80,23 @@
             <div class="detailsTab">
                 <div style="margin: 0px 0px 0px 133px; position: absolute;"><img src="images/line.png" /></div>
                 <div class="menuImgTab" id="menuImgTab">
-                    <img src="images/T_slider-1.jpg" class="item" id="1"/><br/>extra<br/>
+                    <img src="images/T_slider-1.jpg" class="item" id="1" onclick="loadDetails(this.id);"/><br/>extra<br/>
                     <img src="images/T_slider-2.jpg" /><br/>extra<br/>
                     <img src="images/T_slider-3.jpg" /><br/>extra<br/>
                 </div>
                 <div class="pizzaDetailsTab" id="pizzaDetailsTab"> 
-                    <img src="images/slider-1.jpg" style="margin-left: 35px;" />
+                    <img src="images/<% MenuItem menuItemObj = new MenuItemData().getCustomizeItem(3);
+                    out.print(menuItemObj.getImageSource()); %>" style="margin-left: 35px;" />
                     <div class="content" >
-                        <h3>Name</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-                        falla dhekna hawa sabzi kofta<br/>
+                        <h3><% 
+                        out.print(menuItemObj.getItemName());
+                        %></h3>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <% out.print(menuItemObj.getItemToppings()); %><br/>
                         <div class="sizeTab" >Size :</div>
                         <div class="sizeTab" >
-                            <input type="radio" name="size" value="small" />Small<br/>
-                            <input type="radio" name="size" value="medium" />medium<br/>
-                            <input type="radio" name="size" value="large" />large<br/>
+                            <input type="radio" name="size" value="small" id="small"/>Small<br/>
+                            <input type="radio" name="size" value="medium" id="medium"/>medium<br/>
+                            <input type="radio" name="size" value="large" id="large" />large<br/>
                         </div>
                         <div class="sizeTab" ><button class="button" id="addToCart"><img src="images/pizza_icon.png" /></button></div>
                     </div>

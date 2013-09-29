@@ -10,6 +10,7 @@ import DbClasses.MenuItem;
 import DbClasses.OrderTable;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.jms.Session;
 import javax.servlet.ServletException;
@@ -17,8 +18,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.ItemSizeData;
 import model.MenuItemData;
+import model.OrderTableData;
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 /**
  *
@@ -50,7 +54,8 @@ public class _addToCart extends HttpServlet {
                 MenuItemId = Integer.parseInt(request.getParameter("itemID"));
             }
             MenuItem menuItemObj = new MenuItemData().getCustomizeItem(MenuItemId);
-
+            
+       
             
             
             request.getSession().setAttribute("", out);
@@ -107,6 +112,16 @@ public class _addToCart extends HttpServlet {
         CI.setMenuItemID(item.getMenuItemId());
         CI.setQuantity(qty);
         CI.setNetPrice((item.getItemPrice() + curItemSize.getItemSizePrice()) * CI.getQuantity());
-        
+        ArrayList<CustomizeItem> shoppingCart = new ArrayList<CustomizeItem>();
+        shoppingCart.add(CI);
+        OrderTable curOrder = new OrderTable();
+        curOrder.getOrderId();
+        CI.setOrderId(shoppingCart.indexOf(CI));
+        System.out.println(CI.getOrderId());
+       HttpServletRequest request = null;
+       HttpSession session = request.getSession();
+       session.setAttribute("order", shoppingCart);
+        System.out.println(session.getAttribute(shoppingCart.get(2).toString()));
+       
     }
 }

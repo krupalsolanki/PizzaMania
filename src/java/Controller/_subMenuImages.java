@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.*;
 import DbClasses.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -38,8 +39,14 @@ public class _subMenuImages extends HttpServlet {
         try {
             int selectedBtn = Integer.parseInt(request.getParameter("selectedBtn"));
 //            MenuType menuTypeObj = new MenuTypeData().getCustomizeItem(selectedBtn);
-            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(selectedBtn);
-            out.println("<img src=\"images/"+menuItemObj.getImageSource()+"\" class=\"item\" id=\""+menuItemObj.getMenuItemId()+"\"/><br/>"+menuItemObj.getItemName()+"<br/>");
+//            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(selectedBtn);
+            ArrayList<MenuItem> menuItemObj = new MenuItemData().getMenuItemByType(selectedBtn);
+//            System.out.println(menuItemObj.size());
+            for(int i=0; i < 3; i++){
+//                 MenuItem menuItemContent = new MenuItemData().getCustomizeItem(selectedBtn);
+//                menuItemObj.get(i * selectedBtn);
+                out.println("<img src=\"images/T_" + menuItemObj.get(i).getImageSource() + "\" class=\"item\" onclick=\"loadDetails(this.id);\" id=\"" + menuItemObj.get(i).getMenuItemId() + "\"/><br/>" + menuItemObj.get(i).getItemName()+ "<br/>");
+            }
             
         } finally {            
             out.close();

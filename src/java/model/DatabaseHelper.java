@@ -34,7 +34,6 @@ public class DatabaseHelper {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzadb?user=root&password=root");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzadb?", "root", "");
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(sqlQuery);

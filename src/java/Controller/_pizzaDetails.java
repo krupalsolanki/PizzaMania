@@ -45,15 +45,15 @@ public class _pizzaDetails extends HttpServlet {
                 MenuItemId = Integer.parseInt(request.getParameter("itemID"));
             }
             MenuItem menuItemObj = new MenuItemData().getCustomizeItem(MenuItemId);
-            out.println("<img src=\"images/"+menuItemObj.getImageSource().substring(2)+"\" style=\"margin-left: 35px;\" />");
+            out.println("<img src=\"images/"+menuItemObj.getImageSource()+"\" style=\"margin-left: 35px;\" />");
             out.println("<div class=\"content\" >");
             out.println("<h3>"+menuItemObj.getItemName()+"</h3>&nbsp;&nbsp;&nbsp;&nbsp;");
             out.println(menuItemObj.getItemToppings()+"<br/>");
             out.println("<div class=\"sizeTab\" >Size :</div>");
             out.println("<div class=\"sizeTab\" >");
-            out.println("<input type=\"radio\" name=\"size\" value=\"small\" />Small<br/>");
-            out.println("<input type=\"radio\" name=\"size\" value=\"medium\" />medium<br/>");
-            out.println("<input type=\"radio\" name=\"size\" value=\"large\" />large<br/>");
+            out.println("<input type=\"radio\" class=\"size\" name=\"size\" value=\"small\" id=\"small\" />Small<br/>");
+            out.println("<input type=\"radio\" class=\"size\" name=\"size\" value=\"medium\" id=\"medium\" />medium<br/>");
+            out.println("<input type=\"radio\" class=\"size\" name=\"size\" value=\"large\" id=\"large\" />large<br/>");
             out.println("</div>");
             out.println("<div class=\"sizeTab\" ><button class=\"button\">Add to Cart</button></div>");
             out.println("</div>");

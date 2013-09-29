@@ -1,3 +1,19 @@
+function loadDetails(imgID){
+    alert(imgID);
+    $.ajax({
+            type: "POST",
+            url: '_pizzaDetails',
+            data: {
+                itemID: imgID
+            }, 
+            success: function(data) {
+                alert(data);
+                $('#pizzaDetailsTab').html(data);
+            }
+
+        });
+}
+
 $(document).ready(function (){
 //    function details(){
 //        $.ajax({
@@ -15,6 +31,7 @@ $(document).ready(function (){
 //    }
     $(".subMenu").click(function(){
         var btn = this.id;
+        alert(btn);
         $.ajax({
             type: "POST",
             url: '_subMenuImages',
@@ -46,7 +63,9 @@ $(document).ready(function (){
     });
    $("#addToCart").click(function (){
        var addItem = this.id;
+       var size = $(".size").val();
        alert(addItem);
+       
        $.ajax({
             type: "POST",
             url: '_addToCart',

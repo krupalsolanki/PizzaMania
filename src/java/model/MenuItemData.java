@@ -24,13 +24,40 @@ public class MenuItemData {
      public ArrayList<DbClasses.MenuItem> getMenuItems(){
         ArrayList<DbClasses.MenuItem> menuItems = new ArrayList<MenuItem>();
         
-                             ResultSet rs = db.getResultSet("Select * From MenuType");
+                             ResultSet rs = db.getResultSet("Select * From MenuItem");
                          MenuItem menuItem;
 
                          try {
                              while (rs.next()) {
                                  menuItem = new MenuItem();
                                  menuItem.setImageSource(rs.getString("ImageSource"));
+                                 menuItem.setItemPrice(rs.getInt("ItemPrice"));
+                                 menuItem.setItemToppings(rs.getString("ItemToppings"));
+                                 menuItem.setItemTypeId(rs.getInt("ItemTypeId"));
+                                 menuItem.setMenuItemId(rs.getInt("MenuItemId"));
+                                 
+
+                                 menuItems.add(menuItem);
+            }
+        } catch (SQLException se) {
+        }
+
+        
+        return menuItems;
+        
+    }
+     
+     public ArrayList<DbClasses.MenuItem> getMenuItemByType(int type){
+        ArrayList<DbClasses.MenuItem> menuItems = new ArrayList<MenuItem>();
+        
+                             ResultSet rs = db.getResultSet("Select * From MenuItem where itemtypeid = "+type);
+                         MenuItem menuItem;
+
+                         try {
+                             while (rs.next()) {
+                                 menuItem = new MenuItem();
+                                 menuItem.setImageSource(rs.getString("ImageSource"));
+                                 menuItem.setItemName(rs.getString("ItemName"));
                                  menuItem.setItemPrice(rs.getInt("ItemPrice"));
                                  menuItem.setItemToppings(rs.getString("ItemToppings"));
                                  menuItem.setItemTypeId(rs.getInt("ItemTypeId"));
