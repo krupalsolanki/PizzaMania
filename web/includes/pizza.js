@@ -1,17 +1,49 @@
 $(document).ready(function (){
+//    function details(){
+//        $.ajax({
+//            type: "POST",
+//            url: '_pizzaDetails',
+//            data: {
+//                itemID: item
+//            }, 
+//            success: function(data) {
+//                alert(data);
+//                $('#pizzaDetailsTab').html(data);
+//            }
+//
+//        });
+//    }
     $(".subMenu").click(function(){
         var btn = this.id;
-        console.log(btn);
         $.ajax({
             type: "POST",
             url: '_subMenuImages',
             data: {
-                selectedBtn: btn,
+                selectedBtn: btn
             }, 
             success: function(data) {
-                $('#subMenuImages').html(data);
+                alert(data);
+                $('#menuImgTab').html(data);
             }
 
         });
     });
+    $(".item").click(function(){
+        var item = this.id;
+        alert(item);
+        $.ajax({
+            type: "POST",
+            url: '_pizzaDetails',
+            data: {
+                itemID: item
+            }, 
+            success: function(data) {
+                alert(data);
+                $('#pizzaDetailsTab').html(data);
+            }
+
+        });
+    });
+        
+    
 });

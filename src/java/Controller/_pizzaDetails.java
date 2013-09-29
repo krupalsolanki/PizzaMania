@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DbClasses.MenuItem;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +19,8 @@ import DbClasses.*;
  *
  * @author Krupal
  */
-@WebServlet(name = "_subMenuImages", urlPatterns = {"/_subMenuImages"})
-public class _subMenuImages extends HttpServlet {
+@WebServlet(name = "_pizzaDetails", urlPatterns = {"/_pizzaDetails"})
+public class _pizzaDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -36,12 +37,27 @@ public class _subMenuImages extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            int selectedBtn = Integer.parseInt(request.getParameter("selectedBtn"));
-//            MenuType menuTypeObj = new MenuTypeData().getCustomizeItem(selectedBtn);
-            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(selectedBtn);
-            out.println("<img src=\"images/"+menuItemObj.getImageSource()+"\" class=\"item\" id=\""+menuItemObj.getMenuItemId()+"\"/><br/>"+menuItemObj.getItemName()+"<br/>");
-            
-        } finally {            
+            int MenuItemId;
+            if(request.getParameter("itemID") == null){
+                MenuItemId = 1;
+            }
+            else{
+                MenuItemId = Integer.parseInt(request.getParameter("itemID"));
+            }
+            MenuItem menuItemObj = new MenuItemData().getCustomizeItem(MenuItemId);
+            out.println("<img src=\"images/"+menuItemObj.getImageSource().substring(2)+"\" style=\"margin-left: 35px;\" />");
+            out.println("<div class=\"content\" >");
+            out.println("<h3>"+menuItemObj.getItemName()+"</h3>&nbsp;&nbsp;&nbsp;&nbsp;");
+            out.println(menuItemObj.getItemToppings()+"<br/>");
+            out.println("<div class=\"sizeTab\" >Size :</div>");
+            out.println("<div class=\"sizeTab\" >");
+            out.println("<input type=\"radio\" name=\"size\" value=\"small\" />Small<br/>");
+            out.println("<input type=\"radio\" name=\"size\" value=\"medium\" />medium<br/>");
+            out.println("<input type=\"radio\" name=\"size\" value=\"large\" />large<br/>");
+            out.println("</div>");
+            out.println("<div class=\"sizeTab\" ><button class=\"button\">Add to Cart</button></div>");
+            out.println("</div>");
+        } finally {
             out.close();
         }
     }

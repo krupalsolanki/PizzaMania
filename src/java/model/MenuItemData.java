@@ -55,8 +55,9 @@ public class MenuItemData {
 
         try {
             while (rs.next()) {
-
+                                
                                  menuItem.setImageSource(rs.getString("ImageSource"));
+                                 menuItem.setItemName(rs.getString("ItemName"));
                                  menuItem.setItemPrice(rs.getInt("ItemPrice"));
                                  menuItem.setItemToppings(rs.getString("ItemToppings"));
                                  menuItem.setItemTypeId(rs.getInt("ItemTypeId"));
