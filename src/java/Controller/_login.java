@@ -41,12 +41,13 @@ public class _login extends HttpServlet implements java.io.Serializable {
             /* TODO output your page here. You may use following sample code. */
             String username = request.getParameter("txtMobile");
             String password = request.getParameter("txtPass");
+            HttpSession session = request.getSession(true);
             UserT user = new UserTData().getUser(username, password);
             if (user.getUsername().equalsIgnoreCase("")) {
                 RequestDispatcher Rd = request.getRequestDispatcher("index.jsp");
                 Rd.forward(request, response);
             } else {
-                HttpSession session = request.getSession(true);
+                
                 session.setAttribute("User", user);
                 RequestDispatcher Rd = request.getRequestDispatcher("PizzaMenu.jsp");
                 Rd.forward(request, response);

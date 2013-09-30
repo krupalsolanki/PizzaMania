@@ -34,6 +34,7 @@ public class UserTData {
         try {
             while (rs.next()) {
                 user = new UserT();
+                user.setUserid(rs.getInt("userid"));
                 user.setUsername(rs.getString("Username"));
                 user.setPassword(rs.getString("Password"));
                 user.setMobileno(rs.getInt(2));
@@ -66,14 +67,6 @@ public class UserTData {
         }
         return user;
     }
-    public UserT getTestUser() {
-
-//        user = new UserT();
-        user.setUsername("manas");
-        user.setPassword("manas");
-        return user;
-    }
-
     public boolean CheckifMobileExists() {
         ResultSet rs = db.getResultSet("select * from usert where mobileno = '" + user.getMobileno() + "'");
         try {
@@ -85,7 +78,18 @@ public class UserTData {
         }
         return false;
     }
-    
+    public UserT getUserID(String username){
+         ResultSet rs = db.getResultSet("Select * From UserT Where Username = '" + username + "'");
+        UserT user = new UserT();
+        try {
+            while(rs.next()){
+                user.setUserid(rs.getInt("userid"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserTData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user;
+    }
     public void insertUser(UserT user){
        ResultSet rs = db.getResultSet("Insert into UserT Values(NULL,'"+user.getUsername()+"','" + user.getMobileno() + "', '" + user.getCity() + "', '" + user.getArea() + "', '" + user.getBuilding() + "', '" + user.getHouse() + "', '" + user.getPassword() + "')");
     }

@@ -18,7 +18,7 @@
             <div class="registerTab">
                 <form method="post" action="controller/_Login.jsp">
                     <h2 style="font-family: calibri">Login</h2>
-                    <input type="tel" name="txtMobile" style="width: 100%;" class="input" placeholder="Username"/><br/>
+                    <input type="text" name="txtUsername" style="width: 100%;" class="input" placeholder="Username"/><br/>
                     <input type="text" name="txtHouse" style="width: 100%;" class="input" placeholder="Society / House No"/><br/>
                     <input type="text" name="txtCity" style="width: 100%;" class="input" placeholder="City"/><br/>
                     <input type="text" name="txtArea" style="width: 100%;" class="input" placeholder="Area"/><br/>

@@ -1,5 +1,6 @@
+<%@page import="DbClasses.UserT"%>
 <div class="header">
-   <img src="<%=request.getContextPath()%>/images/pizza-icon.png" style="height: 50px; float: left;" />
+    <a href="<%=request.getContextPath() %>/PizzaMenu.jsp" ><img src="<%=request.getContextPath()%>/images/pizza-icon.png" style="height: 50px; float: left;" /></a>
                 <div class="headline">
                     <h1>Pizza Mania</h1>
                 </div>

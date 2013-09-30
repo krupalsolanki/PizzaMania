@@ -48,7 +48,14 @@ public class _addToCart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-
+            double discount = 1;
+            HttpSession session = request.getSession();
+            String redeem = request.getParameter("redeem");
+            if(redeem!=null && redeem.equals("MKDN100") ){
+                discount = 0.5;
+            }
+            else{
+                
             int menuItemId = Integer.parseInt(request.getParameter("itemID"));
             int itemQty = Integer.parseInt(request.getParameter("itemQty"));
             String itemSizeString = request.getParameter("itemSize");
@@ -57,10 +64,8 @@ public class _addToCart extends HttpServlet {
 
             ItemSize curItemSize = new ItemSizeData().getItemSizeString(itemSizeString);
             System.out.println("item price " + curItemSize.getItemSizePrice());
-            HttpSession session = request.getSession();
+            
             user = (UserT) session.getAttribute("User");
-//            System.out.println(session.getAttribute(shoppingCart.get(2).toString()));
-
             System.out.println("user is " + user.getUsername());
             if (session.getAttribute("customizeItemCart") == null) {
                 shoppingCart = new ArrayList<CustomizeItem>();
@@ -69,6 +74,7 @@ public class _addToCart extends HttpServlet {
             }
             addToCart(menuItemObj, itemQty, itemSizeString);
             session.setAttribute("customizeItemCart", shoppingCart);
+            }
             double netPrice = 0;
             double tax = 0;
             double grandTotal = 0;
@@ -91,11 +97,13 @@ public class _addToCart extends HttpServlet {
             }
             tax = netPrice * 0.7;
             float FTax = (float) Math.round(tax * 100) / 1000;
+            discount = (Double)(netPrice - (netPrice * discount));
+            netPrice = netPrice - discount;
             grandTotal = FTax + netPrice;
             out.print("</table>\n"
                     + "                <div class=\"coupon\">\n"
-                    + "                    <input type=\"text\" class=\"input\" style=\"width: 120px; margin: auto\" placeholder=\"Redeem Coupon\"/>\n"
-                    + "                    <button class=\"button\" >Redeem</button>\n"
+                    + "                    <input type=\"text\" class=\"input\" id=\"txtRedeem\" style=\"width: 120px; margin: auto\" placeholder=\"Redeem Coupon\"/>\n"
+                    + "                    <button class=\"button\" onclick=\"redeem();\">Redeem</button>\n"
                     + "                </div>\n"
                     + "                <table class=\"price\">\n"
                     + "                    <tr>\n"
@@ -104,6 +112,14 @@ public class _addToCart extends HttpServlet {
                     + "                        </td>\n"
                     + "                        <td>\n"
                     + "                            Rs. " + netPrice + "\n"
+                    + "                        </td>\n"
+                    + "                    </tr>\n"
+                                        + "                    <tr>\n"
+                    + "                        <td>\n"
+                    + "                            Discount \n"
+                    + "                        </td>\n"
+                    + "                        <td>\n"
+                    + "                            Rs. " + discount + "\n"
                     + "                        </td>\n"
                     + "                    </tr>\n"
                     + "                    <tr>\n"
@@ -125,8 +141,10 @@ public class _addToCart extends HttpServlet {
                     + "                </table>\n");
             out.print("<div style=\"width: 110px; margin: 10px auto;\"> <a href=\"_checkout\" ><button class=\"button\" id=\"checkout\">Checkout</button></a></div>");
             OrderTable odt = new OrderTable();
-            odt.setUserid(user.getUserid());
-            odt.setDiscount(0.00);
+            UserT userobj = new UserTData().getUserID(user.getUsername());
+            
+            odt.setUserid(userobj.getUserid());
+            odt.setDiscount(discount);
             odt.setGrandTotal(grandTotal);
             odt.setTax(Double.parseDouble(""+FTax));
             Date date = new Date();

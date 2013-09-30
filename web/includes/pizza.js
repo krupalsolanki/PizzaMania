@@ -11,7 +11,22 @@ function loadDetails(imgID) {
 
     });
 }
+function redeem(){
+        var discount = document.getElementById("txtRedeem").value;
+        alert(discount);
+        $.ajax({
+            type: "POST",
+            url: '_addToCart',
+            data: {
+                redeem:discount
+            },
+            success: function(data) {
+                $('#cart').html(data);
+            }
 
+        });
+  
+}
 function addToCart(btnCartId) {
     var addItem = btnCartId;
     var qty = document.getElementById("txtQty").value;
@@ -54,6 +69,8 @@ $(document).ready(function() {
 
         });
     });
+
+    
     $(".item").click(function() {
         var item = this.id;
         $.ajax({

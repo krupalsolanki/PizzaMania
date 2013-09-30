@@ -16,15 +16,11 @@
             <div class="rightdiv" id="cart">
                 <h1>Your Order</h1>
                 <div class="coupon">
-                    <input type="text" class="input" style="width: 120px; margin: auto" placeholder="Redeem Coupon"/>
-                    <button class="button">Redeem</button>
+                    <input type="text" id="txtRedeem" class="input" style="width: 120px; margin: auto" placeholder="Redeem Coupon"/>
+                    <button class="button" id="redeem" onclick="redeem();" >Redeem</button>
                 </div>
-                
-               
+     
             </div> 
-
-
-
 
             <div class="subMenuDiv" id="subMenuImages" >
                 <button class="subMenu" id="1">Simply Veg</button>

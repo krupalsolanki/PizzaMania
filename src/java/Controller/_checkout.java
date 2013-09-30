@@ -40,15 +40,14 @@ public class _checkout extends HttpServlet {
         try {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            if(session.getAttribute("order") != null){
-            OrderTable order = (OrderTable)session.getAttribute("order");
-            new OrderTableData().insertOrder(order);
-            session.setAttribute("order", "");
-            session.setAttribute("shoppingCart", "");
-            RequestDispatcher Rd = request.getRequestDispatcher("orderConfirmation.jsp");
+            if (session.getAttribute("order") != null) {
+                OrderTable order = (OrderTable) session.getAttribute("order");
+                new OrderTableData().insertOrder(order);
+                session.invalidate();
+                RequestDispatcher Rd = request.getRequestDispatcher("orderConfirmation.jsp");
                 Rd.forward(request, response);
             }
-        } finally {            
+        } finally {
             out.close();
         }
     }
